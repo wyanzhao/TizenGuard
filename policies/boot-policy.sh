@@ -105,8 +105,8 @@ DETACH w3;
 SQL
 fi
 
-# Ensure retained core packages (TizenTube, Netflix, Apple TV, HDMI/GameBar, Menu, TV-Viewer, Apps Store & helpers) have package_disable/app_disable='false' before native pkgcmd -A activation.
-sqlite3 -bail -cmd '.timeout 15000' /opt/dbspace/.pkgmgr_parser.db "BEGIN IMMEDIATE; UPDATE package_info SET package_disable='false',package_nodisplay='false' WHERE package IN ('TizenTubeS','org.tizen.netflix-app','com.samsung.tv.aria-video','com.samsung.tv.aria-engine','lib-ariafw-tv','com.samsung.tv.gamebar','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp','com.samsung.tv.store','com.samsung.tv.coba.apps','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis-service-app','com.samsung.tv.cis-api-service-app','WykOS4t4F0','ZODRT12q2l','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacy_app','com.samsung.ep.coba.hotel','com.samsung.tizen.samsung-cloud','com.samsung.tv.ghdaemon','com.samsung.tv.ContentsBrowser'); UPDATE package_app_info SET app_disable='false',app_nodisplay='false',app_preload='false' WHERE app_id IN ('com.samsung.tv.aria-video','com.samsung.tv.aria-dummy','com.samsung.tv.aria-engine','com.samsung.tv.gamebar'); UPDATE package_app_info SET app_disable='false',app_nodisplay='false' WHERE app_id IN ('com.samsung.tv.store','org.volt.apps','com.samsung.tv.coba.apps'); UPDATE package_app_info SET app_preload='true' WHERE app_id='com.samsung.tv.coba.apps'; UPDATE package_app_info SET app_disable='false' WHERE app_id IN ('TizenTubeS.TizenTube','TizenTubeS.StandaloneService','org.tizen.netflix-app','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis','com.samsung.tv.cis-api-service-app','WykOS4t4F0.cmsWebApp','ZODRT12q2l.WebAccountExtension','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacychoice','com.samsung.ep.coba.hotel','com.samsung.tizen.samsung-cloud','com.samsung.tv.ghdaemon','com.samsung.tv.ContentsBrowser','com.samsung.tv.ContentsBrowserDetail'); DELETE FROM package_app_info_for_uid WHERE app_id IN ('com.samsung.tv.store','org.volt.apps','com.samsung.tv.coba.apps','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis','com.samsung.tv.cis-api-service-app','WykOS4t4F0.cmsWebApp','ZODRT12q2l.WebAccountExtension','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacychoice','com.samsung.ep.coba.hotel','com.samsung.tizen.samsung-cloud','com.samsung.tv.ghdaemon','com.samsung.tv.ContentsBrowser','com.samsung.tv.ContentsBrowserDetail'); INSERT OR IGNORE INTO package_app_info_for_uid (app_id,uid,is_disabled,is_splash_screen_enabled) VALUES ('com.samsung.tv.aria-video',5001,'true','true'),('com.samsung.tv.aria-dummy',5001,'true','true'),('com.samsung.tv.gamebar',5001,'true','true'); COMMIT;"
+# Ensure retained core packages (TizenTube, Netflix, Apple TV, HDMI/GameBar, Menu, TV-Viewer, Welcome-Mode, Apps Store & helpers) have package_disable/app_disable='false' before native pkgcmd -A activation.
+sqlite3 -bail -cmd '.timeout 15000' /opt/dbspace/.pkgmgr_parser.db "BEGIN IMMEDIATE; UPDATE package_info SET package_disable='false',package_nodisplay='false' WHERE package IN ('TizenTubeS','org.tizen.netflix-app','com.samsung.tv.aria-video','com.samsung.tv.aria-engine','lib-ariafw-tv','com.samsung.tv.gamebar','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp','com.samsung.tv.store','com.samsung.tv.coba.apps','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis-service-app','com.samsung.tv.cis-api-service-app','WykOS4t4F0','ZODRT12q2l','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacy_app','com.samsung.ep.coba.hotel','com.samsung.tizen.samsung-cloud','com.samsung.tv.ghdaemon','com.samsung.tv.ContentsBrowser'); UPDATE package_info SET package_disable='false',package_nodisplay='true' WHERE package='org.tizen.welcome-mode'; UPDATE package_app_info SET app_disable='false',app_nodisplay='false',app_preload='true',app_onboot='false' WHERE app_id='org.tizen.welcome-mode'; UPDATE package_app_info SET app_disable='false',app_nodisplay='false',app_preload='false' WHERE app_id IN ('com.samsung.tv.aria-video','com.samsung.tv.aria-dummy','com.samsung.tv.aria-engine','com.samsung.tv.gamebar'); UPDATE package_app_info SET app_disable='false',app_nodisplay='false' WHERE app_id IN ('com.samsung.tv.store','org.volt.apps','com.samsung.tv.coba.apps'); UPDATE package_app_info SET app_preload='true' WHERE app_id='com.samsung.tv.coba.apps'; UPDATE package_app_info SET app_disable='false',app_preload='false',app_onboot='false' WHERE app_id IN ('TizenTubeS.TizenTube','com.samsung.tv.cobalt-yt'); UPDATE package_app_info SET app_disable='false',app_preload='true',app_onboot='true',app_autorestart='true' WHERE app_id IN ('TizenTubeS.StandaloneService','TizenGuard.Service'); UPDATE package_app_info SET app_disable='false' WHERE app_id IN ('org.tizen.netflix-app','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis','com.samsung.tv.cis-api-service-app','WykOS4t4F0.cmsWebApp','ZODRT12q2l.WebAccountExtension','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacychoice','com.samsung.ep.coba.hotel','com.samsung.tizen.samsung-cloud','com.samsung.tv.ghdaemon','com.samsung.tv.ContentsBrowser','com.samsung.tv.ContentsBrowserDetail'); DELETE FROM package_app_info_for_uid WHERE app_id IN ('org.tizen.welcome-mode','com.samsung.tv.store','org.volt.apps','com.samsung.tv.coba.apps','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis','com.samsung.tv.cis-api-service-app','WykOS4t4F0.cmsWebApp','ZODRT12q2l.WebAccountExtension','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacychoice','com.samsung.ep.coba.hotel','com.samsung.tizen.samsung-cloud','com.samsung.tv.ghdaemon','com.samsung.tv.ContentsBrowser','com.samsung.tv.ContentsBrowserDetail'); INSERT OR IGNORE INTO package_app_info_for_uid (app_id,uid,is_disabled,is_splash_screen_enabled) VALUES ('com.samsung.tv.aria-video',5001,'true','true'),('com.samsung.tv.aria-dummy',5001,'true','true'),('com.samsung.tv.gamebar',5001,'true','true'); COMMIT;"
 
 # 3. Native per-owner deactivation/activation refreshes AMD in-memory cache for background/TVPlus/PrimeVideo/AriaBG/TTS/Setup and retained apps.
 bg_sql="'com.samsung.tizen.smartthings-client','com.samsung.tizen.smartthings-thing','com.samsung.tv.mde-framework','com.samsung.tv.device-assistant-service','com.samsung.tv.device-assistant-viewer-app','NRi6kdBYJ0.AirPlayWebApp','com.samsung.tv.airplay-app','com.samsung.tv.airplay-service','com.samsung.tv.tvplus','com.samsung.tv.tvPlusDeeplinker','com.samsung.tv.slive-daemon','org.tizen.bms-service','org.tizen.primevideo','org.tizen.primevideo-dummy','org.tizen.primevideo_companionapp','30IKH0OX8U.TestBGService','30IKH0OX8U.cwservice','30IKH0OX8U.tilesservice','org.tizen.tts-engine-vd-ATSC','org.tizen.tts-engine-vd-ATSC-sr','org.tizen.tts-engine-vd-ATSC-noti','org.tizen.tts-engine-vd-ATSC-interrupt','org.tizen.register-device-ux','org.tizen.easysetup-daemon'"
@@ -114,13 +114,13 @@ sqlite3 -bail -cmd '.timeout 15000' /opt/dbspace/.pkgmgr_parser.db "BEGIN IMMEDI
 log="$RUN/background-deactivate.log"
 : > "$log"; chown 5001:100 "$log"; chmod 600 "$log"; chsmack -a System "$log"
 unit="tizenguard-native-disable-$(date +%s)"
-systemd-run --unit="$unit" -p Type=oneshot -p User=5001 -p Group=100 -p SmackProcessLabel=System /bin/bash -c 'exec > /run/tizenguard/background-deactivate.log 2>&1; set -e; for a in com.samsung.tizen.smartthings-client com.samsung.tizen.smartthings-thing com.samsung.tv.mde-framework com.samsung.tv.device-assistant-service com.samsung.tv.device-assistant-viewer-app NRi6kdBYJ0.AirPlayWebApp com.samsung.tv.airplay-app com.samsung.tv.airplay-service com.samsung.tv.tvplus com.samsung.tv.tvPlusDeeplinker com.samsung.tv.slive-daemon org.tizen.bms-service org.tizen.primevideo org.tizen.primevideo-dummy org.tizen.primevideo_companionapp 30IKH0OX8U.TestBGService 30IKH0OX8U.cwservice 30IKH0OX8U.tilesservice org.tizen.tts-engine-vd-ATSC org.tizen.tts-engine-vd-ATSC-sr org.tizen.tts-engine-vd-ATSC-noti org.tizen.tts-engine-vd-ATSC-interrupt org.tizen.register-device-ux org.tizen.easysetup-daemon; do /usr/bin/pkgcmd -D -t app -n "$a" --global --uid 5001 || true; done; for e in com.samsung.tv.aria-video com.samsung.tv.aria-dummy com.samsung.tv.gamebar com.samsung.tv.store org.volt.apps com.samsung.tv.coba.apps org.tizen.content-tiles-provider ContentServiceManager com.samsung.tv.waapp-contents-provider com.samsung.tv.sboard-app; do /usr/bin/pkgcmd -A -t app -n "$e" --global --uid 5001 || true; done; echo NATIVE_DISABLE_DONE'
+systemd-run --unit="$unit" -p Type=oneshot -p User=5001 -p Group=100 -p SmackProcessLabel=System /bin/bash -c 'exec > /run/tizenguard/background-deactivate.log 2>&1; set -e; for a in com.samsung.tizen.smartthings-client com.samsung.tizen.smartthings-thing com.samsung.tv.mde-framework com.samsung.tv.device-assistant-service com.samsung.tv.device-assistant-viewer-app NRi6kdBYJ0.AirPlayWebApp com.samsung.tv.airplay-app com.samsung.tv.airplay-service com.samsung.tv.tvplus com.samsung.tv.tvPlusDeeplinker com.samsung.tv.slive-daemon org.tizen.bms-service org.tizen.primevideo org.tizen.primevideo-dummy org.tizen.primevideo_companionapp 30IKH0OX8U.TestBGService 30IKH0OX8U.cwservice 30IKH0OX8U.tilesservice org.tizen.tts-engine-vd-ATSC org.tizen.tts-engine-vd-ATSC-sr org.tizen.tts-engine-vd-ATSC-noti org.tizen.tts-engine-vd-ATSC-interrupt org.tizen.register-device-ux org.tizen.easysetup-daemon; do /usr/bin/pkgcmd -D -t app -n "$a" --global --uid 5001 || true; done; for e in org.tizen.welcome-mode com.samsung.tv.aria-video com.samsung.tv.aria-dummy com.samsung.tv.gamebar com.samsung.tv.store org.volt.apps com.samsung.tv.coba.apps org.tizen.content-tiles-provider ContentServiceManager com.samsung.tv.waapp-contents-provider com.samsung.tv.sboard-app; do /usr/bin/pkgcmd -A -t app -n "$e" --global --uid 5001 || true; done; echo NATIVE_DISABLE_DONE'
 for n in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
   if grep -qx NATIVE_DISABLE_DONE "$log"; then break; fi
   sleep 1
 done
 cat "$log"
-sqlite3 -bail -cmd '.timeout 15000' /opt/dbspace/.pkgmgr_parser.db "BEGIN IMMEDIATE; UPDATE package_info SET package_disable='true',package_nodisplay='true' WHERE package IN (SELECT package FROM package_app_info WHERE app_id IN ($bg_sql)); UPDATE package_app_info SET app_disable='true',app_onboot='false',app_autorestart='false',app_preload='false',app_nodisplay='true' WHERE app_id IN ($bg_sql); INSERT OR REPLACE INTO package_app_info_for_uid (app_id,uid,is_disabled,is_splash_screen_enabled) SELECT app_id,5001,'true','true' FROM package_app_info WHERE app_id IN ($bg_sql); DELETE FROM package_app_info_for_uid WHERE app_id IN ('TizenTubeS.TizenTube','TizenTubeS.StandaloneService','org.tizen.netflix-app','com.samsung.tv.aria-video','com.samsung.tv.aria-dummy','com.samsung.tv.aria-engine','com.samsung.tv.gamebar','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp','com.samsung.tv.store','org.volt.apps','com.samsung.tv.coba.apps','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis','com.samsung.tv.cis-api-service-app','WykOS4t4F0.cmsWebApp','ZODRT12q2l.WebAccountExtension','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacychoice'); COMMIT;"
+sqlite3 -bail -cmd '.timeout 15000' /opt/dbspace/.pkgmgr_parser.db "BEGIN IMMEDIATE; UPDATE package_info SET package_disable='true',package_nodisplay='true' WHERE package IN (SELECT package FROM package_app_info WHERE app_id IN ($bg_sql)); UPDATE package_app_info SET app_disable='true',app_onboot='false',app_autorestart='false',app_preload='false',app_nodisplay='true' WHERE app_id IN ($bg_sql); INSERT OR REPLACE INTO package_app_info_for_uid (app_id,uid,is_disabled,is_splash_screen_enabled) SELECT app_id,5001,'true','true' FROM package_app_info WHERE app_id IN ($bg_sql); DELETE FROM package_app_info_for_uid WHERE app_id IN ('org.tizen.welcome-mode','TizenTubeS.TizenTube','TizenTubeS.StandaloneService','org.tizen.netflix-app','com.samsung.tv.aria-video','com.samsung.tv.aria-dummy','com.samsung.tv.aria-engine','com.samsung.tv.gamebar','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp','com.samsung.tv.store','org.volt.apps','com.samsung.tv.coba.apps','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis','com.samsung.tv.cis-api-service-app','WykOS4t4F0.cmsWebApp','ZODRT12q2l.WebAccountExtension','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacychoice'); COMMIT;"
 grep -qx NATIVE_DISABLE_DONE "$log"
 echo BACKGROUND_NATIVE_DEACTIVATION_VERIFIED
 
@@ -137,12 +137,26 @@ for p in 9Ur5IzDKqV 30IKH0OX8U aQjWjLsPaO ZODRT12q2l; do
   fi
 done
 
-# 5. Enforce comprehensive SQLite package/app disablement, metadata cleanup, and TV Plus triggers.
+# Sync TizenTube local CA cert into Cobalt Evergreen installation slots so Evergreen updates also trust the local proxy.
+for ca_src in /home/owner/share/tizentube-content/ssl/certs/f9cee5e5.0 /home/owner/share/codex-tizentube-content/ssl/certs/f9cee5e5.0; do
+  if test -f "$ca_src"; then
+    for slot in /opt/usr/home/owner/apps_rw/com.samsung.tv.cobalt/data/installation_1/content/ssl/certs /opt/usr/home/owner/apps_rw/com.samsung.tv.cobalt/data/installation_2/content/ssl/certs; do
+      if test -d "$slot" && test ! -f "$slot/f9cee5e5.0"; then
+        cp -f "$ca_src" "$slot/f9cee5e5.0"
+        chown 5001:6527 "$slot/f9cee5e5.0" 2>/dev/null || chown 5001:5001 "$slot/f9cee5e5.0" 2>/dev/null || true
+        chmod 600 "$slot/f9cee5e5.0"
+      fi
+    done
+    break
+  fi
+done
+
+# 5. Enforce comprehensive SQLite package/app disablement, metadata cleanup, and TV Plus / native YouTube triggers.
 sqlite3 -bail /opt/dbspace/.pkgmgr_parser.db <<'SQL'
 .timeout 15000
 BEGIN IMMEDIATE;
 CREATE TEMP TABLE guard(ok INTEGER CHECK(ok=1));
-INSERT INTO guard SELECT count(*)=7 FROM package_app_info WHERE app_id IN ('TizenTubeS.TizenTube','TizenTubeS.StandaloneService','org.tizen.netflix-app','com.samsung.tv.aria-video','org.tizen.menu','org.tizen.tv-viewer','com.samsung.tv.gamebar') AND app_disable='false';
+INSERT INTO guard SELECT count(*)=8 FROM package_app_info WHERE app_id IN ('TizenTubeS.TizenTube','TizenTubeS.StandaloneService','org.tizen.netflix-app','com.samsung.tv.aria-video','org.tizen.menu','org.tizen.tv-viewer','com.samsung.tv.gamebar','org.tizen.welcome-mode') AND app_disable='false';
 
 CREATE TEMP TABLE disable_targets(app_id TEXT PRIMARY KEY);
 INSERT OR IGNORE INTO disable_targets VALUES
@@ -213,13 +227,12 @@ INSERT OR IGNORE INTO disable_targets VALUES
 ('org.tizen.remotepc'),
 ('org.tizen.tts-engine-vd-ATSC'),('org.tizen.tts-engine-vd-ATSC-interrupt'),('org.tizen.tts-engine-vd-ATSC-noti'),('org.tizen.tts-engine-vd-ATSC-sr'),
 ('org.tizen.voice-app'),('org.tizen.voice-app-service'),('org.tizen.voice-client'),('org.tizen.voice-onboarding'),
-('org.tizen.welcome-mode'),
 ('yL49PNFmjW.PromotionApp'),('yL49PNFmjW.service'),
 ('zigzSWa1hy.InstagramAirwave');
 
 UPDATE package_info SET package_disable='true',package_nodisplay='true'
  WHERE package IN (SELECT package FROM package_app_info WHERE app_id IN (SELECT app_id FROM disable_targets))
-   AND package NOT IN ('com.samsung.tv.cobalt','TizenTubeS','org.tizen.netflix-app','com.samsung.tv.aria-video','com.samsung.tv.aria-engine','lib-ariafw-tv','com.samsung.tv.gamebar','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp','TizenGuard','com.samsung.tv.store','com.samsung.tv.coba.apps','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis-service-app','com.samsung.tv.cis-api-service-app','WykOS4t4F0','ZODRT12q2l','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacy_app');
+   AND package NOT IN ('com.samsung.tv.cobalt','TizenTubeS','org.tizen.netflix-app','com.samsung.tv.aria-video','com.samsung.tv.aria-engine','lib-ariafw-tv','com.samsung.tv.gamebar','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp','org.tizen.welcome-mode','TizenGuard','com.samsung.tv.store','com.samsung.tv.coba.apps','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis-service-app','com.samsung.tv.cis-api-service-app','WykOS4t4F0','ZODRT12q2l','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacy_app');
 
 UPDATE package_app_info SET app_disable='true',app_nodisplay='true',app_preload='false',app_onboot='false',app_autorestart='false'
  WHERE app_id IN (SELECT app_id FROM disable_targets);
@@ -228,28 +241,29 @@ INSERT OR REPLACE INTO package_app_info_for_uid (app_id, uid, is_disabled, is_sp
  SELECT app_id, 5001, 'true', 'true' FROM package_app_info WHERE app_disable='true';
 
 UPDATE package_app_info SET app_preload='false',app_onboot='false',app_autorestart='false'
- WHERE app_id IN ('com.samsung.tv.gamebar','com.samsung.tv.aria-video','com.samsung.tv.aria-dummy');
+ WHERE app_id IN ('com.samsung.tv.gamebar','com.samsung.tv.aria-video','com.samsung.tv.aria-dummy','com.samsung.tv.cobalt-yt','TizenTubeS.TizenTube');
 
 UPDATE package_app_app_metadata SET md_value='false'
  WHERE md_key='http://samsung.com/tv/metadata/prelaunch.support'
-   AND app_id NOT IN ('org.tizen.netflix-app','com.samsung.tv.aria-video','TizenTubeS.TizenTube');
+   AND app_id NOT IN ('org.tizen.netflix-app','com.samsung.tv.aria-video');
 
 UPDATE package_app_app_metadata SET md_value='none'
  WHERE md_key='http://samsung.com/tv/metadata/background-update';
 
-UPDATE package_info SET package_disable='false' WHERE package='org.tizen.ambientapp';
-UPDATE package_app_info SET app_disable='false' WHERE app_id='org.tizen.ambientapp';
-DELETE FROM package_app_info_for_uid WHERE uid=5001 AND app_id='org.tizen.ambientapp';
+UPDATE package_info SET package_disable='false' WHERE package IN ('org.tizen.ambientapp','org.tizen.welcome-mode');
+UPDATE package_app_info SET app_disable='false' WHERE app_id IN ('org.tizen.ambientapp','org.tizen.welcome-mode');
+UPDATE package_app_info SET app_preload='true',app_nodisplay='false' WHERE app_id='org.tizen.welcome-mode';
+DELETE FROM package_app_info_for_uid WHERE uid=5001 AND app_id IN ('org.tizen.ambientapp','org.tizen.welcome-mode');
 
 CREATE TRIGGER tizenguard_tvplus_app_disabled AFTER UPDATE OF app_disable,app_preload,app_onboot,app_autorestart ON package_app_info
-WHEN NEW.app_id IN ('com.samsung.tv.tvplus','com.samsung.tv.tvPlusDeeplinker','com.samsung.tv.slive-daemon','org.tizen.bms-service')
+WHEN NEW.app_id IN ('com.samsung.tv.tvplus','com.samsung.tv.tvPlusDeeplinker','com.samsung.tv.slive-daemon','org.tizen.bms-service','9Ur5IzDKqV.TizenYouTube')
  AND (NEW.app_disable!='true' OR NEW.app_preload!='false' OR NEW.app_onboot!='false' OR NEW.app_autorestart!='false')
 BEGIN
  UPDATE package_app_info SET app_disable='true',app_preload='false',app_onboot='false',app_autorestart='false',app_nodisplay='true' WHERE app_id=NEW.app_id;
 END;
 
 CREATE TRIGGER tizenguard_tvplus_package_disabled AFTER UPDATE OF package_disable,package_nodisplay ON package_info
-WHEN NEW.package IN ('com.samsung.tv.tvplus','com.samsung.tv.tvPlusDeeplinker','com.samsung.tv.slive-daemon')
+WHEN NEW.package IN ('com.samsung.tv.tvplus','com.samsung.tv.tvPlusDeeplinker','com.samsung.tv.slive-daemon','9Ur5IzDKqV')
  AND (NEW.package_disable!='true' OR NEW.package_nodisplay!='true')
 BEGIN
  UPDATE package_info SET package_disable='true',package_nodisplay='true' WHERE package=NEW.package;
@@ -263,8 +277,11 @@ SQL
 sqlite3 -bail /opt/dbspace/.webappservice.db <<'SQL'
 .timeout 15000
 BEGIN IMMEDIATE;
+DROP TRIGGER IF EXISTS tizenguard_youtube_hidden;
 UPDATE widgetinfo SET is_hidden=0,is_display=1,is_app_available=1,install_state=3
  WHERE id IN ('TizenTubeS.TizenTube','3201907018807','3201807016597');
+UPDATE widgetinfo SET reserved_string_12='false'
+ WHERE id IN ('TizenTubeS.TizenTube','111299001912') OR tizen_id IN ('TizenTubeS.TizenTube','9Ur5IzDKqV.TizenYouTube');
 UPDATE widgetinfo SET is_hidden=1,is_display=0,is_app_available=0
  WHERE (pkgname IN ('3KA0pm7a7V','9TYrsHWbaB','GHI3a0zMSx','HupEmjIB4I','LBUAQX1exg','MCmYXNxgcu','NRi6kdBYJ0','ZmmGjO6VKO','aQjWjLsPaO','com.samsung.tizen.smartthings-client','com.samsung.tizen.smartthings-thing','com.samsung.tv.airplay-app','com.samsung.tv.bixby-context-client','com.samsung.tv.bixby-prov','com.samsung.tv.bixbycapsuleviewer','com.samsung.tv.cnvoice','com.samsung.tv.cnvoice-assistant','com.samsung.tv.coba.healthview','com.samsung.tv.coba.multiscreen','com.samsung.tv.coba.smartthings','com.samsung.tv.farfieldvoice','com.samsung.tv.gallery','com.samsung.tv.gamebar','com.samsung.tv.iot-service-home-cctv_FLUX','com.samsung.tv.iot-service-notification','com.samsung.tv.multiscreen','com.samsung.tv.mybixby','com.samsung.tv.nfc-daemon','com.samsung.tv.nfc-monitor','com.samsung.tv.ondevice-voice','com.samsung.tv.preview-downloader','com.samsung.tv.preview-updater','com.samsung.tv.samsung-health','com.samsung.tv.targeted-ad-service','com.samsung.tv.tvPlusDeeplinker','com.samsung.tv.tvplus','com.samsung.tv.voiceassistant-music','com.samsung.tv.wakeup-engine-bixby','com.samsung.tv.wifi-motion-service-app','gzcc4LRFBF','jAfAs7yVDX','oKZtnuTBW8','org.tizen.primevideo','org.tizen.ScreenMirroring-app-tv','org.tizen.remotepc','org.tizen.voice-app','org.tizen.voice-client','org.tizen.voice-onboarding','ug-hbbtv-efl','yL49PNFmjW','zigzSWa1hy')
     OR tizen_id IN ('org.tizen.browser','9Ur5IzDKqV.TizenYouTube','oKZtnuTBW8.emanual','org.tizen.primevideo'))
@@ -275,6 +292,12 @@ UPDATE widgetinfo SET is_hidden=1,is_display=1,is_app_available=1
  WHERE id IN ('3201901017624','3201911019599','3202101022708');
 UPDATE widgetinfo SET is_hidden=1,is_display=0,is_app_available=1
  WHERE id='TizenGuard.App';
+CREATE TRIGGER tizenguard_youtube_hidden AFTER UPDATE ON widgetinfo
+WHEN (NEW.id='111299001912' OR NEW.tizen_id='9Ur5IzDKqV.TizenYouTube')
+ AND (NEW.is_hidden!=1 OR NEW.is_display!=0 OR NEW.is_app_available!=0 OR NEW.reserved_string_12!='false')
+BEGIN
+ UPDATE widgetinfo SET is_hidden=1,is_display=0,is_app_available=0,reserved_string_12='false' WHERE id=NEW.id;
+END;
 COMMIT;
 SQL
 
@@ -294,11 +317,18 @@ for u in $units; do
   esac
 done
 
-for a in com.samsung.tv.multiscreen com.samsung.tv.airplay-app com.samsung.tv.airplay-service NRi6kdBYJ0.AirPlayWebApp 30IKH0OX8U.TestBGService 30IKH0OX8U.cwservice 30IKH0OX8U.tilesservice com.samsung.tv.preview-updater org.tizen.hbbtv org.tizen.hbbtv-service org.tizen.primevideo org.tizen.primevideo-dummy org.tizen.primevideo_companionapp org.tizen.welcome-mode org.tizen.register-device-ux org.tizen.easysetup-daemon org.tizen.tts-engine-vd-ATSC-sr org.tizen.tts-engine-vd-ATSC org.tizen.tts-engine-vd-ATSC-noti org.tizen.tts-engine-vd-ATSC-interrupt com.samsung.tv.tvplus com.samsung.tv.tvPlusDeeplinker com.samsung.tv.slive-daemon org.tizen.bms-service; do
+for a in com.samsung.tv.multiscreen com.samsung.tv.airplay-app com.samsung.tv.airplay-service NRi6kdBYJ0.AirPlayWebApp 30IKH0OX8U.TestBGService 30IKH0OX8U.cwservice 30IKH0OX8U.tilesservice com.samsung.tv.preview-updater org.tizen.hbbtv org.tizen.hbbtv-service org.tizen.primevideo org.tizen.primevideo-dummy org.tizen.primevideo_companionapp org.tizen.register-device-ux org.tizen.easysetup-daemon org.tizen.tts-engine-vd-ATSC-sr org.tizen.tts-engine-vd-ATSC org.tizen.tts-engine-vd-ATSC-noti org.tizen.tts-engine-vd-ATSC-interrupt com.samsung.tv.tvplus com.samsung.tv.tvPlusDeeplinker com.samsung.tv.slive-daemon org.tizen.bms-service; do
   app_launcher -u 5001 -t "$a" >/dev/null 2>&1 || true
 done
 
-killall -9 reclaimd dotnet-memory-reclaimer utterance-recommender-core utterance-recom org.tizen.multi org.tizen.multi-assistant-service fuzzy-search-en fuzzy-search-engine context-aware-a context-aware-agent digitalbutler-d digitalbutler-daemon action-planner- action-planner-service ffv-service tts-engine-vd-s tts-engine-vd-sr tts-engine-vd register-device register-device-ux tztv-tagpro-dae tztv-tagpro-daemon org.tizen.easys org.tizen.easysetup-daemon SWUAutoUpgrade was_background_ was_background_update CheckProgramCha dmr pushd stability-monit stability-monitor screen_sharing wfd-manager p2p-asm color-pick mvpd_native audio-share welcome-mode csf-content-eng csf-content-engine connman-logger boot-perfmon-tv socite_service SCSAgent SDDP npumgr_server usdmanagerlaunc usdmanagerlauncher smack-logger tvplus slive-provider- slive-provider-daemon bms-service spotifyd primevideo pvcompanionapp 30IKH0OX8U.cwse 30IKH0OX8U.tile 30IKH0OX8U.Test 2>/dev/null || true
+killall -9 reclaimd dotnet-memory-reclaimer utterance-recommender-core utterance-recom org.tizen.multi org.tizen.multi-assistant-service fuzzy-search-en fuzzy-search-engine context-aware-a context-aware-agent digitalbutler-d digitalbutler-daemon action-planner- action-planner-service ffv-service tts-engine-vd-s tts-engine-vd-sr tts-engine-vd register-device register-device-ux tztv-tagpro-dae tztv-tagpro-daemon org.tizen.easys org.tizen.easysetup-daemon SWUAutoUpgrade was_background_ was_background_update CheckProgramCha dmr pushd stability-monit stability-monitor screen_sharing wfd-manager p2p-asm color-pick mvpd_native audio-share csf-content-eng csf-content-engine connman-logger boot-perfmon-tv socite_service SCSAgent SDDP npumgr_server usdmanagerlaunc usdmanagerlauncher smack-logger tvplus slive-provider- slive-provider-daemon bms-service spotifyd primevideo pvcompanionapp 30IKH0OX8U.cwse 30IKH0OX8U.tile 30IKH0OX8U.Test 2>/dev/null || true
+
+# Ensure power-off animation helper (welcome-mode) is preloaded in background and TizenTube proxy service is active.
+pgrep -x welcome-mode >/dev/null 2>&1 || app_launcher -u 5001 -s org.tizen.welcome-mode mode background >/dev/null 2>&1 || true
+pgrep -f TizenTubeS.StandaloneService >/dev/null 2>&1 || app_launcher -s TizenTubeS.StandaloneService >/dev/null 2>&1 || true
+if pgrep -x cobalt_launcher >/dev/null 2>&1 && grep -Fq '"requests":0' /opt/usr/home/owner/apps_rw/TizenTubeS/data/audit-status.json 2>/dev/null; then
+  killall -9 cobalt_launcher 2>/dev/null || true
+fi
 
 # 7. Fluency profile: native CSFS NUI/Flux animation switch, CPU governor, eMMC queue, VM/reclaimd/resourced/dyboost, and UI/Media/HDMI cgroup/nice guardian.
 printf 'off' > /opt/usr/home/owner/share/animation
@@ -333,6 +363,8 @@ menu 0
 org.tizen.menu 0
 tv-viewer 0
 org.tizen.tv-viewer 0
+welcome-mode 0
+org.tizen.welcome-mode 0
 WLaunch 0
 cobalt_launcher 0
 GIBBON_MAIN 0
@@ -394,7 +426,7 @@ while true; do
       done
     done
   done
-  for c in menu tv-viewer tvs-daemon tvs-lite hdmicec-service source-service gamepad-service bt-service deviced WLaunch cobalt_launcher GIBBON_MAIN aria-engine aria-video; do
+  for c in menu tv-viewer welcome-mode tvs-daemon tvs-lite hdmicec-service source-service gamepad-service bt-service deviced WLaunch cobalt_launcher GIBBON_MAIN aria-engine aria-video; do
     for p in $(pgrep -x "$c" 2>/dev/null || true); do
       renice -n -6 -p "$p" >/dev/null 2>&1 || true
       for tid in /proc/"$p"/task/*; do
