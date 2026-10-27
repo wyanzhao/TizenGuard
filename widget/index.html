@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>TizenGuard</title>
+</head>
+<body style="background:#172019;color:#eee;font:28px sans-serif;padding:60px">
+  <h1>TizenGuard</h1>
+  <p id="state">Starting the background service…</p>
+  <p>Recovery: Apps → Developer Mode → set Host PC IP to your workstation LAN IP, then restart the TV.</p>
+  <script>
+    window.addEventListener('load', function () {
+      tizen.application.launch(
+        'TizenGuard.Service',
+        function () {
+          document.getElementById('state').textContent = 'Background service started.';
+          setTimeout(function () {
+            tizen.application.getCurrentApplication().exit();
+          }, 500);
+        },
+        function (error) {
+          document.getElementById('state').textContent =
+            'Could not start the background service: ' + error.name;
+        }
+      );
+    });
+  </script>
+</body>
+</html>

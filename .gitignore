@@ -1,0 +1,10 @@
+build/
+*.wgt
+*.p12
+*.pwd
+*.key
+*.pem
+__pycache__/
+.DS_Store
+helpers/*/bin/
+helpers/*/obj/

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="https://github.com/wyanzhao/TizenGuard" version="1.0.0" viewmodes="maximized">
+    <tizen:application id="TizenGuard.App" package="TizenGuard" required_version="3.0"/>
+    <content src="index.html"/>
+    <name>TizenGuard</name>
+    <tizen:profile name="tv-samsung"/>
+    <feature name="http://tizen.org/feature/web.service"/>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+    <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.write"/>
+    <tizen:service id="TizenGuard.Service" auto-restart="true" on-boot="true">
+        <tizen:content src="service/main.js"/>
+        <tizen:name>TizenGuard</tizen:name>
+        <tizen:description>Owner-controlled boot policy, privacy debloat, and UI fluency optimizer.</tizen:description>
+    </tizen:service>
+    <tizen:setting background-support="disable" encryption="disable" install-location="auto"/>
+</widget>
