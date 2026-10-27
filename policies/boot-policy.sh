@@ -326,8 +326,8 @@ chmod 644 /opt/usr/home/owner/share/animation
 chsmack -a '*' /opt/usr/home/owner/share/animation
 
 for c in /sys/devices/system/cpu/cpu[0-3]/cpufreq; do
-  echo 1000000 > "$c/scaling_min_freq" 2>/dev/null || true
   echo 1700000 > "$c/scaling_max_freq" 2>/dev/null || true
+  echo 1700000 > "$c/scaling_min_freq" 2>/dev/null || true
 done
 if test -d /sys/devices/system/cpu/cpufreq/interactive; then
   echo 60 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 2>/dev/null || true
@@ -398,6 +398,10 @@ if [ -f /sys/fs/cgroup/cpu/Background/cpu.shares ]; then
   echo 512 > /sys/fs/cgroup/cpu/Background/cpu.shares 2>/dev/null || true
 fi
 while true; do
+  for cpufreq in /sys/devices/system/cpu/cpu[0-3]/cpufreq; do
+    echo 1700000 > "$cpufreq/scaling_max_freq" 2>/dev/null || true
+    echo 1700000 > "$cpufreq/scaling_min_freq" 2>/dev/null || true
+  done
   for c in enlightenment DN_sung.tv.csfs; do
     for p in $(pgrep -x "$c" 2>/dev/null || true); do
       renice -n -10 -p "$p" >/dev/null 2>&1 || true
