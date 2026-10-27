@@ -105,22 +105,22 @@ DETACH w3;
 SQL
 fi
 
-# Ensure retained core packages (TizenTube, Netflix, Apple TV, HDMI/GameBar, Menu, TV-Viewer) have package_disable/app_disable='false' before native pkgcmd -A activation.
-sqlite3 -bail -cmd '.timeout 15000' /opt/dbspace/.pkgmgr_parser.db "BEGIN IMMEDIATE; UPDATE package_info SET package_disable='false',package_nodisplay='false' WHERE package IN ('TizenTubeS','org.tizen.netflix-app','com.samsung.tv.aria-video','com.samsung.tv.aria-engine','lib-ariafw-tv','com.samsung.tv.gamebar','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp'); UPDATE package_app_info SET app_disable='false',app_nodisplay='false',app_preload='false' WHERE app_id IN ('com.samsung.tv.aria-video','com.samsung.tv.aria-dummy','com.samsung.tv.aria-engine','com.samsung.tv.gamebar'); UPDATE package_app_info SET app_disable='false' WHERE app_id IN ('TizenTubeS.TizenTube','TizenTubeS.StandaloneService','org.tizen.netflix-app','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp'); INSERT OR IGNORE INTO package_app_info_for_uid (app_id,uid,is_disabled,is_splash_screen_enabled) VALUES ('com.samsung.tv.aria-video',5001,'true','true'),('com.samsung.tv.aria-dummy',5001,'true','true'),('com.samsung.tv.gamebar',5001,'true','true'); COMMIT;"
+# Ensure retained core packages (TizenTube, Netflix, Apple TV, HDMI/GameBar, Menu, TV-Viewer, Apps Store & helpers) have package_disable/app_disable='false' before native pkgcmd -A activation.
+sqlite3 -bail -cmd '.timeout 15000' /opt/dbspace/.pkgmgr_parser.db "BEGIN IMMEDIATE; UPDATE package_info SET package_disable='false',package_nodisplay='false' WHERE package IN ('TizenTubeS','org.tizen.netflix-app','com.samsung.tv.aria-video','com.samsung.tv.aria-engine','lib-ariafw-tv','com.samsung.tv.gamebar','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp','com.samsung.tv.store','com.samsung.tv.coba.apps','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis-service-app','com.samsung.tv.cis-api-service-app','WykOS4t4F0','ZODRT12q2l','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacy_app','com.samsung.ep.coba.hotel','com.samsung.tizen.samsung-cloud','com.samsung.tv.ghdaemon','com.samsung.tv.ContentsBrowser'); UPDATE package_app_info SET app_disable='false',app_nodisplay='false',app_preload='false' WHERE app_id IN ('com.samsung.tv.aria-video','com.samsung.tv.aria-dummy','com.samsung.tv.aria-engine','com.samsung.tv.gamebar'); UPDATE package_app_info SET app_disable='false',app_nodisplay='false' WHERE app_id IN ('com.samsung.tv.store','org.volt.apps','com.samsung.tv.coba.apps'); UPDATE package_app_info SET app_preload='true' WHERE app_id='com.samsung.tv.coba.apps'; UPDATE package_app_info SET app_disable='false' WHERE app_id IN ('TizenTubeS.TizenTube','TizenTubeS.StandaloneService','org.tizen.netflix-app','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis','com.samsung.tv.cis-api-service-app','WykOS4t4F0.cmsWebApp','ZODRT12q2l.WebAccountExtension','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacychoice','com.samsung.ep.coba.hotel','com.samsung.tizen.samsung-cloud','com.samsung.tv.ghdaemon','com.samsung.tv.ContentsBrowser','com.samsung.tv.ContentsBrowserDetail'); DELETE FROM package_app_info_for_uid WHERE app_id IN ('com.samsung.tv.store','org.volt.apps','com.samsung.tv.coba.apps','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis','com.samsung.tv.cis-api-service-app','WykOS4t4F0.cmsWebApp','ZODRT12q2l.WebAccountExtension','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacychoice','com.samsung.ep.coba.hotel','com.samsung.tizen.samsung-cloud','com.samsung.tv.ghdaemon','com.samsung.tv.ContentsBrowser','com.samsung.tv.ContentsBrowserDetail'); INSERT OR IGNORE INTO package_app_info_for_uid (app_id,uid,is_disabled,is_splash_screen_enabled) VALUES ('com.samsung.tv.aria-video',5001,'true','true'),('com.samsung.tv.aria-dummy',5001,'true','true'),('com.samsung.tv.gamebar',5001,'true','true'); COMMIT;"
 
 # 3. Native per-owner deactivation/activation refreshes AMD in-memory cache for background/TVPlus/PrimeVideo/AriaBG/TTS/Setup and retained apps.
-bg_sql="'com.samsung.tizen.smartthings-client','com.samsung.tizen.smartthings-thing','com.samsung.tv.mde-framework','com.samsung.tv.device-assistant-service','com.samsung.tv.device-assistant-viewer-app','NRi6kdBYJ0.AirPlayWebApp','com.samsung.tv.airplay-app','com.samsung.tv.airplay-service','com.samsung.tv.tvplus','com.samsung.tv.tvPlusDeeplinker','com.samsung.tv.slive-daemon','org.tizen.bms-service','org.tizen.primevideo','org.tizen.primevideo-dummy','org.tizen.primevideo_companionapp','30IKH0OX8U.TestBGService','30IKH0OX8U.cwservice','30IKH0OX8U.tilesservice','org.tizen.tts-engine-vd-ATSC','org.tizen.tts-engine-vd-ATSC-sr','org.tizen.tts-engine-vd-ATSC-noti','org.tizen.tts-engine-vd-ATSC-interrupt','org.tizen.register-device-ux','org.tizen.easysetup-daemon','com.samsung.tv.sboard-app'"
+bg_sql="'com.samsung.tizen.smartthings-client','com.samsung.tizen.smartthings-thing','com.samsung.tv.mde-framework','com.samsung.tv.device-assistant-service','com.samsung.tv.device-assistant-viewer-app','NRi6kdBYJ0.AirPlayWebApp','com.samsung.tv.airplay-app','com.samsung.tv.airplay-service','com.samsung.tv.tvplus','com.samsung.tv.tvPlusDeeplinker','com.samsung.tv.slive-daemon','org.tizen.bms-service','org.tizen.primevideo','org.tizen.primevideo-dummy','org.tizen.primevideo_companionapp','30IKH0OX8U.TestBGService','30IKH0OX8U.cwservice','30IKH0OX8U.tilesservice','org.tizen.tts-engine-vd-ATSC','org.tizen.tts-engine-vd-ATSC-sr','org.tizen.tts-engine-vd-ATSC-noti','org.tizen.tts-engine-vd-ATSC-interrupt','org.tizen.register-device-ux','org.tizen.easysetup-daemon'"
 sqlite3 -bail -cmd '.timeout 15000' /opt/dbspace/.pkgmgr_parser.db "BEGIN IMMEDIATE; DROP TRIGGER IF EXISTS tizenguard_tvplus_app_disabled; DROP TRIGGER IF EXISTS tizenguard_tvplus_package_disabled; UPDATE package_info SET package_disable='false' WHERE package IN (SELECT package FROM package_app_info WHERE app_id IN ($bg_sql)); UPDATE package_app_info SET app_disable='false',app_onboot='false',app_autorestart='false',app_preload='false' WHERE app_id IN ($bg_sql); UPDATE package_app_info_for_uid SET is_disabled='false' WHERE uid=5001 AND app_id IN ($bg_sql); COMMIT;"
 log="$RUN/background-deactivate.log"
 : > "$log"; chown 5001:100 "$log"; chmod 600 "$log"; chsmack -a System "$log"
 unit="tizenguard-native-disable-$(date +%s)"
-systemd-run --unit="$unit" -p Type=oneshot -p User=5001 -p Group=100 -p SmackProcessLabel=System /bin/bash -c 'exec > /run/tizenguard/background-deactivate.log 2>&1; set -e; for a in com.samsung.tizen.smartthings-client com.samsung.tizen.smartthings-thing com.samsung.tv.mde-framework com.samsung.tv.device-assistant-service com.samsung.tv.device-assistant-viewer-app NRi6kdBYJ0.AirPlayWebApp com.samsung.tv.airplay-app com.samsung.tv.airplay-service com.samsung.tv.tvplus com.samsung.tv.tvPlusDeeplinker com.samsung.tv.slive-daemon org.tizen.bms-service org.tizen.primevideo org.tizen.primevideo-dummy org.tizen.primevideo_companionapp 30IKH0OX8U.TestBGService 30IKH0OX8U.cwservice 30IKH0OX8U.tilesservice org.tizen.tts-engine-vd-ATSC org.tizen.tts-engine-vd-ATSC-sr org.tizen.tts-engine-vd-ATSC-noti org.tizen.tts-engine-vd-ATSC-interrupt org.tizen.register-device-ux org.tizen.easysetup-daemon com.samsung.tv.sboard-app; do /usr/bin/pkgcmd -D -t app -n "$a" --global --uid 5001 || true; done; for e in com.samsung.tv.aria-video com.samsung.tv.aria-dummy com.samsung.tv.gamebar; do /usr/bin/pkgcmd -A -t app -n "$e" --global --uid 5001 || true; done; echo NATIVE_DISABLE_DONE'
+systemd-run --unit="$unit" -p Type=oneshot -p User=5001 -p Group=100 -p SmackProcessLabel=System /bin/bash -c 'exec > /run/tizenguard/background-deactivate.log 2>&1; set -e; for a in com.samsung.tizen.smartthings-client com.samsung.tizen.smartthings-thing com.samsung.tv.mde-framework com.samsung.tv.device-assistant-service com.samsung.tv.device-assistant-viewer-app NRi6kdBYJ0.AirPlayWebApp com.samsung.tv.airplay-app com.samsung.tv.airplay-service com.samsung.tv.tvplus com.samsung.tv.tvPlusDeeplinker com.samsung.tv.slive-daemon org.tizen.bms-service org.tizen.primevideo org.tizen.primevideo-dummy org.tizen.primevideo_companionapp 30IKH0OX8U.TestBGService 30IKH0OX8U.cwservice 30IKH0OX8U.tilesservice org.tizen.tts-engine-vd-ATSC org.tizen.tts-engine-vd-ATSC-sr org.tizen.tts-engine-vd-ATSC-noti org.tizen.tts-engine-vd-ATSC-interrupt org.tizen.register-device-ux org.tizen.easysetup-daemon; do /usr/bin/pkgcmd -D -t app -n "$a" --global --uid 5001 || true; done; for e in com.samsung.tv.aria-video com.samsung.tv.aria-dummy com.samsung.tv.gamebar com.samsung.tv.store org.volt.apps com.samsung.tv.coba.apps org.tizen.content-tiles-provider ContentServiceManager com.samsung.tv.waapp-contents-provider com.samsung.tv.sboard-app; do /usr/bin/pkgcmd -A -t app -n "$e" --global --uid 5001 || true; done; echo NATIVE_DISABLE_DONE'
 for n in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
   if grep -qx NATIVE_DISABLE_DONE "$log"; then break; fi
   sleep 1
 done
 cat "$log"
-sqlite3 -bail -cmd '.timeout 15000' /opt/dbspace/.pkgmgr_parser.db "BEGIN IMMEDIATE; UPDATE package_info SET package_disable='true',package_nodisplay='true' WHERE package IN (SELECT package FROM package_app_info WHERE app_id IN ($bg_sql)); UPDATE package_app_info SET app_disable='true',app_onboot='false',app_autorestart='false',app_preload='false',app_nodisplay='true' WHERE app_id IN ($bg_sql); INSERT OR REPLACE INTO package_app_info_for_uid (app_id,uid,is_disabled,is_splash_screen_enabled) SELECT app_id,5001,'true','true' FROM package_app_info WHERE app_id IN ($bg_sql); DELETE FROM package_app_info_for_uid WHERE app_id IN ('TizenTubeS.TizenTube','TizenTubeS.StandaloneService','org.tizen.netflix-app','com.samsung.tv.aria-video','com.samsung.tv.aria-dummy','com.samsung.tv.aria-engine','com.samsung.tv.gamebar','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp'); COMMIT;"
+sqlite3 -bail -cmd '.timeout 15000' /opt/dbspace/.pkgmgr_parser.db "BEGIN IMMEDIATE; UPDATE package_info SET package_disable='true',package_nodisplay='true' WHERE package IN (SELECT package FROM package_app_info WHERE app_id IN ($bg_sql)); UPDATE package_app_info SET app_disable='true',app_onboot='false',app_autorestart='false',app_preload='false',app_nodisplay='true' WHERE app_id IN ($bg_sql); INSERT OR REPLACE INTO package_app_info_for_uid (app_id,uid,is_disabled,is_splash_screen_enabled) SELECT app_id,5001,'true','true' FROM package_app_info WHERE app_id IN ($bg_sql); DELETE FROM package_app_info_for_uid WHERE app_id IN ('TizenTubeS.TizenTube','TizenTubeS.StandaloneService','org.tizen.netflix-app','com.samsung.tv.aria-video','com.samsung.tv.aria-dummy','com.samsung.tv.aria-engine','com.samsung.tv.gamebar','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp','com.samsung.tv.store','org.volt.apps','com.samsung.tv.coba.apps','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis','com.samsung.tv.cis-api-service-app','WykOS4t4F0.cmsWebApp','ZODRT12q2l.WebAccountExtension','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacychoice'); COMMIT;"
 grep -qx NATIVE_DISABLE_DONE "$log"
 echo BACKGROUND_NATIVE_DEACTIVATION_VERIFIED
 
@@ -156,22 +156,19 @@ INSERT OR IGNORE INTO disable_targets VALUES
 ('aQjWjLsPaO.MultiScreenWebLauncher'),
 ('adplatform.ADPlayer'),
 ('com.samsung.tizen.samsung-analytics'),
-('com.samsung.tizen.samsung-cloud'),
 ('com.samsung.tizen.smartthings-client'),('com.samsung.tizen.smartthings-thing'),
-('com.samsung.tv.ContentsBrowser'),('com.samsung.tv.ContentsBrowserDetail'),
 ('com.samsung.tv.acr'),
 ('com.samsung.tv.action-planner-service'),
 ('com.samsung.tv.ad-web-framework'),
 ('com.samsung.tv.adagent-service'),('com.samsung.tv.pisa-service'),('org.tizen.pisa-control-service'),
-('com.samsung.tv.adplayer'),('com.samsung.tv.coba.adagent'),
+('com.samsung.tv.adplayer'),
 ('com.samsung.tv.airplay-app'),('com.samsung.tv.airplay-service'),
 ('com.samsung.tv.alexa-client'),('com.samsung.tv.alexa-fullscreen-app'),
 ('com.samsung.tv.bixby-context-client'),('com.samsung.tv.bixby-prov'),('com.samsung.tv.bixbycapsuleviewer'),
 ('com.samsung.tv.canalysis-service'),
-('com.samsung.tv.cis'),('com.samsung.tv.cis-api-service-app'),
 ('com.samsung.tv.cnvoice'),('com.samsung.tv.cnvoice-assistant'),
 ('com.samsung.tv.coba.ambient'),('com.samsung.tv.coba.ambientcontentabout'),('com.samsung.tv.coba.ambientcontentapp'),('com.samsung.tv.coba.ambientcontentart'),('com.samsung.tv.coba.ambientcontentroutine'),('com.samsung.tv.coba.ambientsetting'),('com.samsung.tv.coba.ambienttv'),
-('com.samsung.tv.coba.healthview'),('com.samsung.tv.coba.multiscreen'),('com.samsung.tv.coba.privacychoice'),('com.samsung.tv.coba.smartthings'),
+('com.samsung.tv.coba.healthview'),('com.samsung.tv.coba.multiscreen'),('com.samsung.tv.coba.smartthings'),
 ('com.samsung.tv.cobalt-app-test'),('com.samsung.tv.cobalt-gpm'),('com.samsung.tv.cobalt-stadia'),('com.samsung.tv.cobalt-ytkids'),('com.samsung.tv.cobalt-yttv'),
 ('com.samsung.tv.contents-recognition-dbmgr'),('com.samsung.tv.nvision-analysis-dbmgr'),('com.samsung.tv.vision-data-recognition-service'),('content-grab-service'),
 ('com.samsung.tv.context-aware-agent'),('com.samsung.tv.context-aware-agent-toast-view'),('com.samsung.tv.context-aware-grab-control'),('com.samsung.tv.context-aware-server-requester'),('com.samsung.tv.context-aware-service'),
@@ -181,7 +178,6 @@ INSERT OR IGNORE INTO disable_targets VALUES
 ('com.samsung.tv.farfieldvoice'),
 ('com.samsung.tv.fuzzy-search-engine'),
 ('com.samsung.tv.gallery'),
-('com.samsung.tv.ghdaemon'),
 ('com.samsung.tv.google-assistant'),('com.samsung.tv.google-fullscreen-app'),
 ('com.samsung.tv.iot-service-home-cctv_FLUX'),('com.samsung.tv.iot-service-notification'),
 ('com.samsung.tv.lightweight-node-service'),
@@ -192,33 +188,25 @@ INSERT OR IGNORE INTO disable_targets VALUES
 ('com.samsung.tv.ondevice-voice'),
 ('com.samsung.tv.preview-downloader'),('com.samsung.tv.preview-updater'),
 ('com.samsung.tv.samsung-health'),('samsunghealth-service-tv'),
-('com.samsung.tv.sboard-app'),
 ('com.samsung.tv.slive-daemon'),('org.tizen.bms-service'),
 ('com.samsung.tv.targeted-ad-service'),
 ('com.samsung.tv.tvPlusDeeplinker'),('com.samsung.tv.tvplus'),
 ('com.samsung.tv.utterance-recommender-app'),('com.samsung.tv.utterance-recommender-core'),
 ('com.samsung.tv.vif'),
 ('com.samsung.tv.voiceassistant-music'),
-('com.samsung.tv.waapp-contents-provider'),
 ('com.samsung.tv.wakeup-engine-alexa'),('com.samsung.tv.wakeup-engine-bixby'),
 ('com.samsung.tv.wifi-motion-service-app'),
 ('com.samsung.tv.simpletext-tpl'),('com.samsung.tv.lightgrid-tpl'),('com.samsung.tv.bouroullecwidget-tpl'),('com.samsung.tv.vibe-tpl'),('com.samsung.tv.vibeglwidget-tpl'),('com.samsung.tv.mountainview-tpl'),('com.samsung.tv.cinemagraph-relaxation'),('com.samsung.tv.DynamicFilter'),('com.samsung.tv.tranquilnature-tpl'),
-('com.samsung.ep.coba.hotel'),
-('com.samsung.hitcomp'),
-('ContentServiceManager'),
 ('gzcc4LRFBF.ContinueWatchingService'),('gzcc4LRFBF.Peacock'),('gzcc4LRFBF.service'),
 ('jAfAs7yVDX.TheSix'),('jAfAs7yVDX.rpservice'),
 ('oKZtnuTBW8.emanual'),
 ('XPkceUl3N4.UsbCamApp'),
 ('tv6pbVMQFF.PrivacyChoices'),
-('WykOS4t4F0.cmsWebApp'),
-('ZODRT12q2l.WebAccountExtension'),
 ('30IKH0OX8U.TestBGService'),('30IKH0OX8U.cwservice'),('30IKH0OX8U.tilesservice'),
 ('9Ur5IzDKqV.TizenYouTube'),
 ('org.tizen.browser'),
 ('org.tizen.primevideo'),('org.tizen.primevideo-dummy'),('org.tizen.primevideo_companionapp'),
 ('org.tizen.ScreenMirroring-app-tv'),
-('org.tizen.content-tiles-provider'),
 ('org.tizen.hbbtv'),('org.tizen.hbbtv-service'),
 ('org.tizen.multi-assistant-service'),
 ('org.tizen.register-device-ux'),
@@ -231,7 +219,7 @@ INSERT OR IGNORE INTO disable_targets VALUES
 
 UPDATE package_info SET package_disable='true',package_nodisplay='true'
  WHERE package IN (SELECT package FROM package_app_info WHERE app_id IN (SELECT app_id FROM disable_targets))
-   AND package NOT IN ('com.samsung.tv.cobalt','TizenTubeS','org.tizen.netflix-app','com.samsung.tv.aria-video','com.samsung.tv.aria-engine','lib-ariafw-tv','com.samsung.tv.gamebar','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp','TizenGuard');
+   AND package NOT IN ('com.samsung.tv.cobalt','TizenTubeS','org.tizen.netflix-app','com.samsung.tv.aria-video','com.samsung.tv.aria-engine','lib-ariafw-tv','com.samsung.tv.gamebar','org.tizen.menu','org.tizen.tv-viewer','org.tizen.ambientapp','TizenGuard','com.samsung.tv.store','com.samsung.tv.coba.apps','org.tizen.content-tiles-provider','ContentServiceManager','com.samsung.tv.waapp-contents-provider','com.samsung.tv.cis-service-app','com.samsung.tv.cis-api-service-app','WykOS4t4F0','ZODRT12q2l','com.samsung.tv.sboard-app','com.samsung.hitcomp','com.samsung.tv.coba.privacy_app');
 
 UPDATE package_app_info SET app_disable='true',app_nodisplay='true',app_preload='false',app_onboot='false',app_autorestart='false'
  WHERE app_id IN (SELECT app_id FROM disable_targets);
@@ -240,7 +228,7 @@ INSERT OR REPLACE INTO package_app_info_for_uid (app_id, uid, is_disabled, is_sp
  SELECT app_id, 5001, 'true', 'true' FROM package_app_info WHERE app_disable='true';
 
 UPDATE package_app_info SET app_preload='false',app_onboot='false',app_autorestart='false'
- WHERE app_id IN ('com.samsung.tv.store','org.volt.apps','com.samsung.tv.gamebar','com.samsung.tv.aria-video','com.samsung.tv.aria-dummy');
+ WHERE app_id IN ('com.samsung.tv.gamebar','com.samsung.tv.aria-video','com.samsung.tv.aria-dummy');
 
 UPDATE package_app_app_metadata SET md_value='false'
  WHERE md_key='http://samsung.com/tv/metadata/prelaunch.support'
@@ -291,7 +279,7 @@ COMMIT;
 SQL
 
 # 6. Mask and stop all non-essential telemetry, ad, ACR, voice, cloud, discovery, and background-update systemd units.
-units="reclaimd.service com.samsung.tv.context-aware-agent.path com.samsung.tv.context-aware-agent.service com.samsung.tv.context-aware-service.path com.samsung.tv.context-aware-service.service abnormal_user_behavior.service emergency-log-transmitter.service issue_report_agent.service wifi-presence.service mde-framework.service com.samsung.tv.device-assistant-service.service adagent-service.service allshare-svc.service ambient-ua-agent.service bms.path bms.service canalysis-service.service com.samsung.tv.airplay-service.path com.samsung.tv.airplay-service.service com.samsung.tv.airplay-service-2.path com.samsung.tv.airplay-service-2.service com.samsung.tv.farfieldvoice.path com.samsung.tv.farfieldvoice.service com.samsung.tv.multiscreen.service com.samsung.tv.nfc-daemon.service com.samsung.tv.ondevice-voice.path com.samsung.tv.ondevice-voice.service com.samsung.tv.preview-updater.service com.samsung.tv.voiceassistant-music.service com.samsung.tv.wifi-motion-mgr.service content-grab-service.path content-grab-service.service contents-recognition-service.service contents-ui-detector-service.service vision-data-recognition-service.path vision-data-recognition-service.service data-service.service kpi-logging.service media-analytics-service.service mirroring-recognition-manager.service org.tizen.remotepc.service org.tizen.tv.sp-kpi.service org.tizen.voice-app.path org.tizen.voice-app.service org.tizen.multi-assistant-service.path org.tizen.multi-assistant-service.service pisa-service.path pisa-service.service pisa-service.socket samsunghealth-service-tv-dbus-activation.service samsunghealth-service-tv-path-activation.path samsunghealth-service-tv-path-activation.service samsunghealth-service-tv.path samsunghealth-service-tv.service slive-provider-daemon.path slive-provider-daemon.service hbbtv-service.path hbbtv-service.service org.tizen.art-app.path org.tizen.art-app.service com.samsung.tv.ghdaemon.path com.samsung.tv.ghdaemon.service devicetracker.service org.tizen.tv.tagpro-service-tv.service register-device.service org.tizen.easysetup-daemon.service swu-auto-upgrade.service swu-auto-upgrade.timer was-background-update.service vdsystem-update-manager.timer vdsystem-update-manager.service ai-abr-download-manager.timer ai-abr-download-manager.service camera-conf-mgr-abm-tv.timer camera-conf-mgr-abm-tv.service dlogutil.timer dlog_logger.service stability-monitor.service boot-perfmon-tv.service socite-remote.service scs-agent.service pushd.service csf-content-engine.service color-pick.service mvpd-service.service vd_dmr.service screen_sharing.service wfd-manager.service audio-share.service sddp.service org.tizen.NPUManager.service org.tizen.UsbSyncDisplay.service connman-logger.service smack-logger.service vddebugmenu.service"
+units="reclaimd.service com.samsung.tv.context-aware-agent.path com.samsung.tv.context-aware-agent.service com.samsung.tv.context-aware-service.path com.samsung.tv.context-aware-service.service abnormal_user_behavior.service emergency-log-transmitter.service issue_report_agent.service wifi-presence.service mde-framework.service com.samsung.tv.device-assistant-service.service adagent-service.service allshare-svc.service ambient-ua-agent.service bms.path bms.service canalysis-service.service com.samsung.tv.airplay-service.path com.samsung.tv.airplay-service.service com.samsung.tv.airplay-service-2.path com.samsung.tv.airplay-service-2.service com.samsung.tv.farfieldvoice.path com.samsung.tv.farfieldvoice.service com.samsung.tv.multiscreen.service com.samsung.tv.nfc-daemon.service com.samsung.tv.ondevice-voice.path com.samsung.tv.ondevice-voice.service com.samsung.tv.preview-updater.service com.samsung.tv.voiceassistant-music.service com.samsung.tv.wifi-motion-mgr.service content-grab-service.path content-grab-service.service contents-recognition-service.service contents-ui-detector-service.service vision-data-recognition-service.path vision-data-recognition-service.service data-service.service kpi-logging.service media-analytics-service.service mirroring-recognition-manager.service org.tizen.remotepc.service org.tizen.tv.sp-kpi.service org.tizen.voice-app.path org.tizen.voice-app.service org.tizen.multi-assistant-service.path org.tizen.multi-assistant-service.service pisa-service.path pisa-service.service pisa-service.socket samsunghealth-service-tv-dbus-activation.service samsunghealth-service-tv-path-activation.path samsunghealth-service-tv-path-activation.service samsunghealth-service-tv.path samsunghealth-service-tv.service slive-provider-daemon.path slive-provider-daemon.service hbbtv-service.path hbbtv-service.service org.tizen.art-app.path org.tizen.art-app.service devicetracker.service org.tizen.tv.tagpro-service-tv.service register-device.service org.tizen.easysetup-daemon.service swu-auto-upgrade.service swu-auto-upgrade.timer was-background-update.service vdsystem-update-manager.timer vdsystem-update-manager.service ai-abr-download-manager.timer ai-abr-download-manager.service camera-conf-mgr-abm-tv.timer camera-conf-mgr-abm-tv.service dlogutil.timer dlog_logger.service stability-monitor.service boot-perfmon-tv.service socite-remote.service scs-agent.service pushd.service csf-content-engine.service color-pick.service mvpd-service.service vd_dmr.service screen_sharing.service wfd-manager.service audio-share.service sddp.service org.tizen.NPUManager.service org.tizen.UsbSyncDisplay.service connman-logger.service smack-logger.service vddebugmenu.service"
 for u in $units; do
   if test ! -e /run/systemd/system/"$u" && test ! -L /run/systemd/system/"$u"; then
     ln -s /dev/null /run/systemd/system/"$u"
@@ -306,18 +294,11 @@ for u in $units; do
   esac
 done
 
-for a in com.samsung.tv.multiscreen com.samsung.tv.airplay-app com.samsung.tv.airplay-service NRi6kdBYJ0.AirPlayWebApp 30IKH0OX8U.TestBGService 30IKH0OX8U.cwservice 30IKH0OX8U.tilesservice com.samsung.tv.preview-updater org.tizen.hbbtv org.tizen.hbbtv-service org.tizen.primevideo org.tizen.primevideo-dummy org.tizen.primevideo_companionapp com.samsung.tv.sboard-app org.tizen.welcome-mode org.tizen.register-device-ux org.tizen.easysetup-daemon com.samsung.tv.ghdaemon com.samsung.tv.cis com.samsung.tv.cis-api-service-app ContentServiceManager org.tizen.content-tiles-provider com.samsung.tv.waapp-contents-provider com.samsung.hitcomp org.tizen.tts-engine-vd-ATSC-sr org.tizen.tts-engine-vd-ATSC org.tizen.tts-engine-vd-ATSC-noti org.tizen.tts-engine-vd-ATSC-interrupt com.samsung.tv.tvplus com.samsung.tv.tvPlusDeeplinker com.samsung.tv.slive-daemon org.tizen.bms-service; do
+for a in com.samsung.tv.multiscreen com.samsung.tv.airplay-app com.samsung.tv.airplay-service NRi6kdBYJ0.AirPlayWebApp 30IKH0OX8U.TestBGService 30IKH0OX8U.cwservice 30IKH0OX8U.tilesservice com.samsung.tv.preview-updater org.tizen.hbbtv org.tizen.hbbtv-service org.tizen.primevideo org.tizen.primevideo-dummy org.tizen.primevideo_companionapp org.tizen.welcome-mode org.tizen.register-device-ux org.tizen.easysetup-daemon org.tizen.tts-engine-vd-ATSC-sr org.tizen.tts-engine-vd-ATSC org.tizen.tts-engine-vd-ATSC-noti org.tizen.tts-engine-vd-ATSC-interrupt com.samsung.tv.tvplus com.samsung.tv.tvPlusDeeplinker com.samsung.tv.slive-daemon org.tizen.bms-service; do
   app_launcher -u 5001 -t "$a" >/dev/null 2>&1 || true
 done
 
-fg_app=$(vconftool get memory/appfw/current_fullscreen_appid 2>/dev/null | awk '{print $4}' || true)
-if test "$fg_app" != "com.samsung.tv.store" && test "$fg_app" != "org.volt.apps"; then
-  app_launcher -u 5001 -t com.samsung.tv.store >/dev/null 2>&1 || true
-  app_launcher -u 5001 -t org.volt.apps >/dev/null 2>&1 || true
-  killall -9 DN_ung.tv.store 2>/dev/null || true
-fi
-
-killall -9 reclaimd dotnet-memory-reclaimer utterance-recommender-core utterance-recom org.tizen.multi org.tizen.multi-assistant-service fuzzy-search-en fuzzy-search-engine context-aware-a context-aware-agent digitalbutler-d digitalbutler-daemon action-planner- action-planner-service ffv-service tts-engine-vd-s tts-engine-vd-sr tts-engine-vd sboard-app register-device register-device-ux tztv-tagpro-dae tztv-tagpro-daemon org.tizen.easys org.tizen.easysetup-daemon SWUAutoUpgrade was_background_ was_background_update hitcomp CheckProgramCha cis-service-app CISAPIAppManage cis-api-service-app ContentServiceM ContentServiceManager dmr pushd ghdaemon stability-monit stability-monitor screen_sharing wfd-manager p2p-asm color-pick mvpd_native audio-share content-tiles-p content-tiles-provider welcome-mode csf-content-eng csf-content-engine connman-logger boot-perfmon-tv socite_service SCSAgent SDDP npumgr_server usdmanagerlaunc usdmanagerlauncher smack-logger waapp-contents- waapp-contents-provider tvplus slive-provider- slive-provider-daemon bms-service spotifyd samsungcloud primevideo pvcompanionapp 30IKH0OX8U.cwse 30IKH0OX8U.tile 30IKH0OX8U.Test 2>/dev/null || true
+killall -9 reclaimd dotnet-memory-reclaimer utterance-recommender-core utterance-recom org.tizen.multi org.tizen.multi-assistant-service fuzzy-search-en fuzzy-search-engine context-aware-a context-aware-agent digitalbutler-d digitalbutler-daemon action-planner- action-planner-service ffv-service tts-engine-vd-s tts-engine-vd-sr tts-engine-vd register-device register-device-ux tztv-tagpro-dae tztv-tagpro-daemon org.tizen.easys org.tizen.easysetup-daemon SWUAutoUpgrade was_background_ was_background_update CheckProgramCha dmr pushd stability-monit stability-monitor screen_sharing wfd-manager p2p-asm color-pick mvpd_native audio-share welcome-mode csf-content-eng csf-content-engine connman-logger boot-perfmon-tv socite_service SCSAgent SDDP npumgr_server usdmanagerlaunc usdmanagerlauncher smack-logger tvplus slive-provider- slive-provider-daemon bms-service spotifyd primevideo pvcompanionapp 30IKH0OX8U.cwse 30IKH0OX8U.tile 30IKH0OX8U.Test 2>/dev/null || true
 
 # 7. Fluency profile: native CSFS NUI/Flux animation switch, CPU governor, eMMC queue, VM/reclaimd/resourced/dyboost, and UI/Media/HDMI cgroup/nice guardian.
 printf 'off' > /opt/usr/home/owner/share/animation
